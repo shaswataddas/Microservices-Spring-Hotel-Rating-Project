@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: USER-SERVICE
+    name: USERSERVICE
   datasource:
     url: jdbc:mysql://localhost:3306/microservices_user
     username: admin
