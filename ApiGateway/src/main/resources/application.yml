@@ -2,6 +2,9 @@ spring:
   application:
     name: APIGATEWAY
 
+  config:
+    import: configserver:http://localhost:8085
+
   cloud:
     gateway:
       routes:
@@ -23,11 +26,11 @@ spring:
 server:
   port: 8084
 
-eureka:
-  instance:
-    prefer-ip-address: true
-  client:
-    fetch-registry: true
-    register-with-eureka: true
-    service-url:
-      defaultZone: http://localhost:8761/eureka
+#eureka:
+#  instance:
+#    prefer-ip-address: true
+#  client:
+#    fetch-registry: true
+#    register-with-eureka: true
+#    service-url:
+#      defaultZone: http://localhost:8761/eureka

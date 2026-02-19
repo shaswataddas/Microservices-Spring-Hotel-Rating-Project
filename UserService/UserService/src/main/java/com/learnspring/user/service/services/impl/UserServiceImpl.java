@@ -42,14 +42,31 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<User> getAllUser() {
-        // Fetch all the users from DB
+        // 1️⃣ Fetch all users from DB
         List<User> allUsersList = userRepository.findAll();
-
-        // Fetch rating for all the users
-
-
+        // 2️⃣ For each user fetch ratings + hotels
+        allUsersList.forEach(user -> {
+            // Call Rating Service
+            Rating[] ratingsOfUser = restTemplate.getForObject(
+                    "http://RATINGSERVICE/ratings/users/" + user.getUserId(),
+                    Rating[].class
+            );
+            if (ratingsOfUser != null) {
+                List<Rating> ratingList = Arrays.stream(ratingsOfUser)
+                        .map(rating -> {
+                            // Call Hotel Service
+                            Hotel hotel = hotelService.getHotel(rating.getHotelId());
+                            // Set hotel into rating
+                            rating.setHotel(hotel);
+                            return rating;
+                        }).collect(Collectors.toList());
+                // Set ratings to user
+                user.setRatings(ratingList);
+            }
+        });
         return allUsersList;
     }
+
 
     @Override
     public User getUser(String userId) {
