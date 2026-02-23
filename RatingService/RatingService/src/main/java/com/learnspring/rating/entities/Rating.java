@@ -3,15 +3,14 @@ package com.learnspring.rating.entities;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.Transient;
+import lombok.*;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Entity
 @Table(name = "user_ratings")
 public class Rating {
@@ -21,4 +20,6 @@ public class Rating {
     private String hotelId;
     private int rating;
     private String feedback;
+    @Transient
+    private Hotel hotel;
 }

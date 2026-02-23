@@ -17,6 +17,14 @@ spring:
   config:
     import: configserver:http://localhost:8085
 
+resilience4j:
+  ratelimiter:
+    instances:
+      ratingRateLimiter:
+        limit-refresh-period: 4s
+        limit-for-period: 2
+        timeout-duration: 0s
+
 #eureka:
 #  instance:
 #    prefer-ip-address: true
