@@ -22,7 +22,7 @@ resilience4j:
     instances:
       ratingRateLimiter:
         limit-refresh-period: 4s
-        limit-for-period: 2
+        limit-for-period: 50
         timeout-duration: 0s
 
 #eureka:
