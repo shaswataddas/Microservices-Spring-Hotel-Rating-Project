@@ -44,6 +44,7 @@ public class UserController {
     //creating ratingHotelFallback method for circuitBreaker
     public ResponseEntity<User> ratingHotelFallback (String userId, Exception e){
         logger.info("Fallback method called due to service unavailability");
+        e.printStackTrace();
         User failedUser = User.builder()
                 .email("dummyuser@yopmail.com")
                 .about("This is a Dummy User for Fault Tolerance")
@@ -68,6 +69,9 @@ public class UserController {
     //creating ratingHotelRetryFallback method for Retry
     public ResponseEntity<List<User>> ratingHotelRetryFallback(Exception e){
         logger.info("Retry Fallback is called due to Service unavailability");
+
+        e.printStackTrace();
+
         User failedUser = User.builder()
                 .email("dummyuser@yopmail.com")
                 .about("This is a Dummy User for Fault Tolerance - From Retry Method")

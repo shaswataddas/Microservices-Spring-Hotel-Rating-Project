@@ -10,6 +10,24 @@ spring:
     password: Admin@123!
     driver-class-name: com.mysql.cj.jdbc.Driver
 
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://integrator-4846454.okta.com/oauth2/default
+      client:
+        registration:
+          user_service_internal_client:
+            provider: okta
+            authorization-grant-type: client_credentials
+            scope: internal
+            client-id: 0oa10uy2296P5wiIY698
+            client-secret: eml5l7cyoLvF46sxkjHWPitfmCG-ghEvVg2KpwpzcpHKaKsBjqa8G1WBqbRQohJk
+        provider:
+          okta:
+            issuer-uri: https://integrator-4846454.okta.com/oauth2/default
+
+
   jpa:
     hibernate:
       ddl-auto: update
@@ -33,3 +51,8 @@ resilience4j:
 #    register-with-eureka: true
 #    service-url:
 #      defaultZone: http://localhost:8761/eureka
+
+okta:
+  oauth2:
+    issuer: https://integrator-4846454.okta.com/oauth2/default
+    audience: api://default
