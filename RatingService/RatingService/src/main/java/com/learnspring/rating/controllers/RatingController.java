@@ -31,7 +31,7 @@ public class RatingController {
     }
 
     @GetMapping("/users/{userId}")
-//    @RateLimiter(name = "ratingRateLimiter", fallbackMethod = "ratingHotelFallbackRateLimiter")
+    @RateLimiter(name = "ratingRateLimiter", fallbackMethod = "ratingHotelFallbackRateLimiter")
     public ResponseEntity<List<Rating>> getAllByUserID(@PathVariable String userId){
         return ResponseEntity.status(HttpStatus.OK).body(ratingService.getAllByUserId(userId));
     }
