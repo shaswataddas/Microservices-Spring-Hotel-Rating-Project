@@ -3,9 +3,19 @@ spring:
     name: APIGATEWAY
 
   config:
-    import: configserver:http://localhost:8085
+    import: "configserver:http://localhost:8085,vault://"
 
   cloud:
+    vault:
+      uri: http://127.0.0.1:8200
+      authentication: TOKEN
+      token: ${VAULT_TOKEN}
+
+      kv:
+        enabled: true
+        backend: secret
+        default-context: apigateway
+
     gateway:
       routes:
         - id: USERSERVICE
@@ -39,8 +49,6 @@ okta:
   oauth2:
     issuer: https://integrator-4846454.okta.com/oauth2/default
     audience: api://default
-    client-id: 0oa10uy2296P5wiIY698
-    client-secret: eml5l7cyoLvF46sxkjHWPitfmCG-ghEvVg2KpwpzcpHKaKsBjqa8G1WBqbRQohJk
     scopes:
       - openid
       - profile

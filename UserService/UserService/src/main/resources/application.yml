@@ -6,8 +6,6 @@ spring:
     name: USERSERVICE
   datasource:
     url: jdbc:mysql://localhost:3306/microservices_user
-    username: admin
-    password: Admin@123!
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
@@ -16,7 +14,18 @@ spring:
     show-sql: true
 
   config:
-    import: configserver:http://localhost:8085
+    import: "configserver:http://localhost:8085,vault://"
+
+  cloud:
+    vault:
+      uri: http://127.0.0.1:8200
+      authentication: TOKEN
+      token: ${VAULT_TOKEN}
+
+      kv:
+        enabled: true
+        backend: secret
+        default-context: userservice
 
   security:
     oauth2:
@@ -29,8 +38,6 @@ spring:
             provider: okta
             authorization-grant-type: client_credentials
             scope: internal
-            client-id: 0oa10uy2296P5wiIY698
-            client-secret: eml5l7cyoLvF46sxkjHWPitfmCG-ghEvVg2KpwpzcpHKaKsBjqa8G1WBqbRQohJk
         provider:
           okta:
             issuer-uri: https://integrator-4846454.okta.com/oauth2/default
